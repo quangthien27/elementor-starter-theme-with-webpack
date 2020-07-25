@@ -1,0 +1,164 @@
+@each $name, $color in $colors {
+  .#{$name} {
+    color: #{$color};
+  }
+  .bg-#{$name} {
+    background-color: #{$color};
+  }
+}
+
+html,
+body {
+  font-family: $font-sans-serif;
+}
+
+html {
+  font-size: $font-size-root;
+}
+
+body {
+  font-size: rem(16px);
+  font-family: $font-sans-serif;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  font-family: $font-sans-serif;
+}
+
+h1, .h1 {
+  font-size: rem(35px);
+
+  @include media-breakpoint-up(md) {
+    font-size: rem(50px);
+  }
+}
+
+h2, .h2 {
+  font-size: rem(45px);
+
+  @include media-breakpoint-up(md) {
+    font-size: rem(61px);
+  }
+}
+
+h3, .h3 {
+  font-size: rem(32px);
+}
+
+h4, .h4 {
+  font-size: rem(24px);
+}
+
+h5, .h5 {
+  font-size: rem(22px);
+}
+
+h6, .h6 {
+  font-size: rem(20px);
+}
+
+p {
+  margin-bottom: 15px;
+
+  @include media-breakpoint-up(xl) {
+    margin-bottom: 25px;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  color: inherit;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
+textarea,
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="search"],
+input[type="phone"],
+input[type="date"],
+input[type="text"],
+input[type="email"] {
+  @include clear-outline();
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+iframe {
+  border: 0;
+}
+
+#wpadminbar {
+  @media (max-width: 600px) {
+    position: fixed;
+  }
+}
+
+.wow {
+  visibility: hidden;
+
+  &.wow-visible {
+    visibility: hidden;
+  }
+}
+
+.content-columns-2 {
+  @include media-breakpoint-up(lg) {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+}
+
+.content-columns-3 {
+  @include media-breakpoint-up(lg) {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+  }
+}
+
+.section {
+  padding: 45px 0;
+
+  @include media-breakpoint-up(lg) {
+    padding: 90px 0;
+  }
+
+  &.section-sm {
+    @include media-breakpoint-up(lg) {
+      padding: 45px 0;
+    }
+  }
+
+  &.section-md {
+    @include media-breakpoint-up(lg) {
+      padding: 75px 0;
+    }
+  }
+
+  &.section-lg {
+    @include media-breakpoint-up(lg) {
+      padding: 135px 0;
+    }
+  }
+}
+
+.bg-center {
+  @include bg-image-pos(center);
+}

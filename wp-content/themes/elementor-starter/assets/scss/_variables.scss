@@ -1,0 +1,46 @@
+/*************************************************/
+/* SCREEN BREAKPOINTS */
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1700px,
+);
+
+/*************************************************/
+/* FONTS */
+$font-sans-serif: 'Roboto', sans-serif;
+$font-size-root: 16px;
+
+/*************************************************/
+/* COLORS */
+$colors: (
+        'white': white,
+        'black': black,
+);
+
+/*************************************************/
+/* IMAGES */
+$images: '../images';
+$fonts: '../fonts';
+
+/*************************************************/
+/* SPACINGS */
+$gutter: 60px;
+$gutter-md: 30px;
+$gutter-sm: 15px;
+
+$input-height: 60px;
+
+$screen-admin-min: 783px;
+$screen-inner-content: 1000px;
+
+$g-admin-bar-small: 32px;
+$g-admin-bar-large: 46px;
+
+$letter-spacing: 0.4em;
+$letter-spacing-md: 0.2em;
+$letter-spacing-sm: 0.1em;
+$letter-spacing-xs: 0.05em;

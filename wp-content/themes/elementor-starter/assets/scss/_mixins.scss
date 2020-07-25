@@ -1,0 +1,317 @@
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+  $n: index($breakpoint-names, $name);
+  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+  $next: breakpoint-next($name, $breakpoints);
+  @return if($next, breakpoint-min($next, $breakpoints) - 1px, null);
+}
+
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+  @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+}
+
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+@function rem($px-value) {
+  $root-value: strip-unit($font-size-root);
+  $value: strip-unit($px-value);
+  $rem-value: ($value / $root-value) + rem;
+  @return $rem-value;
+}
+
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-between($lower, $upper, $breakpoints: $grid-breakpoints) {
+  @include media-breakpoint-up($lower, $breakpoints) {
+    @include media-breakpoint-down($upper, $breakpoints) {
+      @content;
+    }
+  }
+}
+
+@mixin media-breakpoint-only($name, $breakpoints: $grid-breakpoints) {
+  @include media-breakpoint-between($name, $name, $breakpoints) {
+    @content;
+  }
+}
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot otf ttf woff) {
+  $src: null;
+
+  $extmods: (
+          eot: "?",
+          svg: "#" + str-replace($name, " ", "_")
+  );
+
+  $formats: (
+          otf: "opentype",
+          ttf: "truetype"
+  );
+
+  @each $ext in $exts {
+    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+  }
+
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}
+
+@mixin background-image($bigPath, $smallPath) {
+  @include media-breakpoint-up(md) {
+    background-image: url($bigPath);
+  }
+  @include media-breakpoint-down(md) {
+    background-image: url($smallPath);
+  }
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+
+@mixin gradient($color1, $color2) {
+  background: #{$color1}; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#{$color1}, #{$color2}); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#{$color1}, #{$color2}); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#{$color1}, #{$color2}); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#{$color1}, #{$color2}); /* Standard syntax */
+}
+
+@mixin clear-ul-li() {
+  padding-left: 0;
+  margin: 0;
+  li {
+    list-style-type: none;
+  }
+}
+
+@mixin clear-outline() {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline: 0;
+}
+
+@mixin reset-absolute() {
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  position: relative;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+@mixin bg-image-pos($pos, $size: cover) {
+  background-position: $pos;
+  background-repeat: no-repeat;
+  -webkit-background-size: $size;
+  background-size: $size;
+}
+
+@mixin st-transition {
+  transition: all .25s ease-in-out 0s;
+}
+
+@mixin st-shadow {
+  box-shadow: 0 3px 6px rgba(#000, 0.16);
+}
+
+@mixin st-section-gap {
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+@mixin hover-focus-active {
+  &:focus,
+  &:active,
+  &:hover {
+    @content
+  }
+}
+
+@mixin link-variant($color) {
+  color: $color;
+  @include st-transition();
+  @include hover-focus-active() {
+    color: lighten($color, 5%);
+  }
+}
+
+@mixin centered-block() {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin btn-variant($color, $bg-color) {
+  border-radius: 0;
+  border: 0;
+  text-transform: uppercase;
+  background-color: $bg-color;
+  color: $color;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  @include st-transition();
+  @include hover-focus-active() {
+    background-color: lighten($bg-color, 10%);
+  }
+}
+
+@mixin pseudo-content() {
+  content: '';
+  display: block;
+  position: absolute;
+}
+
+@mixin safari-only() {
+  @media not all and (min-resolution: .001dpcm) {
+    @supports (-webkit-appearance:none) {
+      @content
+    }
+  }
+}
+
+@mixin ie10-only() {
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @content
+  }
+}
+
+@mixin spaced() {
+  letter-spacing: $letter-spacing-md;
+  @include media-breakpoint-up(md) {
+    letter-spacing: $letter-spacing;
+  }
+}
+
+@mixin spaced-md() {
+  letter-spacing: $letter-spacing-sm;
+  @include media-breakpoint-up(md) {
+    letter-spacing: $letter-spacing-md;
+  }
+}
+
+@mixin spaced-sm() {
+  letter-spacing: $letter-spacing-xs;
+  @include media-breakpoint-up(md) {
+    letter-spacing: $letter-spacing-sm;
+  }
+}
+
+@mixin style-select2($height, $vertical-align, $color, $padding-left) {
+  $h: $height;
+  vertical-align: $vertical-align;
+  text-align: left !important;
+  position: relative;
+  .Safari & {
+    vertical-align: 0;
+  }
+  @include safari-only() {
+    vertical-align: 0;
+  }
+  &:after {
+    @include pseudo-content;
+    left: 0;
+    top: $height - 1px;
+    height: 1px;
+    background-color: $color;
+    right: 0;
+  }
+  &,
+  & * {
+    outline: none !important;
+  }
+  .select2-selection--single {
+    background-color: transparent;
+    border: 0;
+    height: $h;
+  }
+  .select2-selection__rendered {
+    color: $color;
+    line-height: $h;
+    padding-left: $padding-left;
+    padding-right: 15px;
+  }
+  .select2-selection__arrow {
+    top: 50%;
+    margin-top: -13px;
+    right: -5px;
+
+    b {
+      border-color: $color transparent transparent transparent;
+    }
+  }
+}
+
+@mixin section-title() {
+  line-height: 1.1;
+  font-weight: 300;
+  font-size: rem(25px);
+  @include media-breakpoint-up(lg) {
+    font-size: rem(39px);
+  }
+}
+
+@function theme-color($key: "primary") {
+  @return map-get($colors, $key);
+}
