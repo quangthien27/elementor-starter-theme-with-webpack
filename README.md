@@ -2,7 +2,7 @@
 
 **Contributors:** Thien Nguyen  
 **Requires at least:** WordPress 5.4  
-**Tested up to:** WordPress 5.4 
+**Tested up to:** WordPress 5.4   
 **Requires PHP:** 7.3
 
 **License:** GPLv2 or later  
