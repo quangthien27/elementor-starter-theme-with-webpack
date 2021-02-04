@@ -4,8 +4,7 @@
  */
 
 defined( 'WP_ENV' ) or define( 'WP_ENV', 'staging' );
-defined( 'ASSETS_VERSION' ) or define( 'ASSETS_VERSION', '1.0' );
-
+defined( 'ASSETS_VERSION' ) or define( 'ASSETS_VERSION', md5( filemtime( get_theme_file_path( 'dist/main.min.css' ) ) . filemtime( get_theme_file_path( 'dist/main.min.js' ) ) ) );
 // add_filter( 'acf/settings/show_admin', ( defined( 'SHOW_ACF' ) && SHOW_ACF ? '__return_true' : '__return_false' ) );
 
 add_filter( 'body_class', 'body_classes' );
