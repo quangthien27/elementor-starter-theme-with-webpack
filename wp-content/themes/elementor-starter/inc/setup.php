@@ -66,20 +66,19 @@ function enqueue_scripts() {
 
   /* Common assets */
   $assets_css = [
-    'css-bootstrap-reboot' => 'plugins/bootstrap-4.5.0/css/bootstrap-reboot.min.css',
-    'css-bootstrap-grid'   => 'plugins/bootstrap-4.5.0/css/bootstrap-grid.min.css',
-    'css-bootstrap'        => 'plugins/bootstrap-4.5.0/css/bootstrap.min.css',
-    'css-font-awesome'     => 'plugins/font-awesome-4.7.0/css/font-awesome.min.css',
+    'css-bootstrap-reboot' => 'libraries/bootstrap-4.5.0/css/bootstrap-reboot.min.css',
+    'css-bootstrap-grid'   => 'libraries/bootstrap-4.5.0/css/bootstrap-grid.min.css',
+    'css-bootstrap'        => 'libraries/bootstrap-4.5.0/css/bootstrap.min.css',
   ];
   $assets_js  = [
-    'js-bootstrap'   => 'plugins/bootstrap-4.5.0/js/bootstrap.bundle.min.js',
-    'js-css-browser' => 'plugins/css_browser_selector/css_browser_selector.js',
+    'js-bootstrap'   => 'libraries/bootstrap-4.5.0/js/bootstrap.bundle.min.js',
+    'js-css-browser' => 'libraries/css_browser_selector/css_browser_selector.js',
   ];
 
   /* Specific assets */
-  $assets_css['css-slick']       = 'plugins/slick/slick.min.css';
-  $assets_css['css-slick-theme'] = 'plugins/slick/slick-theme.min.css';
-  $assets_js['js-slick']         = 'plugins/slick/slick.min.js';
+  $assets_css['css-slick']       = 'libraries/slick/slick.min.css';
+  $assets_css['css-slick-theme'] = 'libraries/slick/slick-theme.min.css';
+  $assets_js['js-slick']         = 'libraries/slick/slick.min.js';
 
   /* Enqueue */
   wp_enqueue_script( 'jquery' );
@@ -118,7 +117,6 @@ add_action( 'wp_head', 'hook_head' );
 function hook_head() {
   ?>
   <script type="text/javascript">var $ = jQuery.noConflict();</script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <?php
 }
 

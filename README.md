@@ -32,8 +32,8 @@ A starter theme which includes:
 5. To update styles, use files in `/assets/scss` folder
 6. To update scripts, use files in `/assets/js` folder
 7. To create custom Elementor widget, check sample in `/inc/modules/elementor/elementor.php`
-8. To update fonts and other basic them configs, use `/inc/setup.php`
-9. To see javascript libraries ready, check `/assets/plugins/` folder
+8. To update fonts and other basic theme configs, use `/inc/setup.php`
+9. To see javascript libraries ready, check `/assets/libraries/` folder
 10. To use custom CSS without re-building the theme, use `/assets/css/custom.css`  
 
 
@@ -43,3 +43,8 @@ A starter theme which includes:
 * Released: July 25, 2020
 
 Initial release
+
+### 1.2
+* Released: Feb 04, 2021
+
+Tweak default setup
