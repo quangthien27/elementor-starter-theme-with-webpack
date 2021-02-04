@@ -186,6 +186,30 @@ function get_sibling( $post_id, $link = 'next' ) {
   return false;
 }
 
+function get_adjacent_taxonomy_id( $taxonomy, $current_term_id, $previous = false ) {
+  $term_ids = get_terms( [ 'hide_empty' => true, 'taxonomy' => $taxonomy, 'fields' => 'ids' ] );
+
+  if ( is_wp_error( $term_ids ) || empty( $term_ids ) ) {
+    return false;
+  }
+
+  $term_ids = array_values( $term_ids );
+
+  $current_index = array_search( $current_term_id, $term_ids );
+
+  if ( ! $previous ) {
+    if ( false !== $current_index && isset( $term_ids[ $current_index + 1 ] ) ) {
+      return $term_ids[ $current_index + 1 ];
+    }
+  } else {
+    if ( false !== $current_index && isset( $term_ids[ $current_index - 1 ] ) ) {
+      return $term_ids[ $current_index - 1 ];
+    }
+  }
+
+  return false;
+}
+
 function is_elementor_active() {
   return class_exists( 'Elementor\Plugin' );
 }
