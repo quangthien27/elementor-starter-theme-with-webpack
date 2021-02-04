@@ -38,13 +38,16 @@ function setup_theme() {
 
   register_nav_menus( array(
     'primary_menu' => __( 'Primary Menu' ),
-    'footer_menu'  => __( 'Footer Menu' ),
+    // 'footer_menu'  => __( 'Footer Menu' ),
   ) );
 }
 
 add_action( 'acf/init', 'add_site_settings_page' );
 function add_site_settings_page() {
-  if ( ( current_user_can( 'manage_options' ) || current_user_can( 'editor' ) ) && function_exists( 'acf_add_options_page' ) ) {
+  if (
+    function_exists( 'acf_add_options_page' ) &&
+    current_user_can( 'edit_others_posts' )
+  ) {
     acf_add_options_page( array(
       'page_title'    => 'Site Settings',
       'menu_title'    => 'Site Settings',
