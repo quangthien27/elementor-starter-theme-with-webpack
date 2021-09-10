@@ -113,6 +113,19 @@ function custom_excerpt_more( $more ) {
   return ' ...';
 }
 
+add_filter( 'map_meta_cap', 'custom_fix_elementor_not_saved_for_non_admins', 1, 3 );
+function custom_fix_elementor_not_saved_for_non_admins( $caps, $cap, $user_id ) {
+  if ( ! is_multisite() ) {
+    return $caps;
+  }
+
+  if ( 'unfiltered_html' === $cap && user_can( $user_id, 'edit_posts' ) ) {
+    $caps = [ 'unfiltered_html' ];
+  }
+
+  return $caps;
+}
+
 add_action( 'wp_head', 'hook_head' );
 function hook_head() {
   ?>
