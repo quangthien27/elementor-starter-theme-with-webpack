@@ -24,6 +24,11 @@
     "sass-loader": "^7.1.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^3.2.3",
+    "webpack-fix-style-only-entries": "^0.6.1"
+  },
+  "volta": {
+    "node": "16.14.2",
+    "yarn": "1.22.18"
   }
 }

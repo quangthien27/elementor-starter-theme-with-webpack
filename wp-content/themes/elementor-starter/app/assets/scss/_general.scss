@@ -1,0 +1,94 @@
+@each $name, $color in $colors {
+  .#{$name} {
+    color: #{$color};
+  }
+  .bg-#{$name} {
+    background-color: #{$color};
+  }
+}
+
+:root {
+  /* Fallback color vars. They will be override by Elementor kit */
+  --e-global-color-primary: #010101;
+  --e-global-color-secondary: #010101;
+}
+
+html,
+body {
+  font-family: $font-sans-serif;
+}
+
+html {
+  font-size: $font-size-root;
+}
+
+body {
+  font-size: rem(16px);
+  font-family: $font-sans-serif;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+
+  --swiper-navigation-size: 25px;
+  --swiper-theme-color: var(--e-global-color-secondary);
+
+  @include media-breakpoint-up(lg) {
+    --swiper-navigation-size: 35px;
+  }
+}
+
+p {
+  margin-bottom: 10px;
+
+  @include media-breakpoint-up(xl) {
+    margin-bottom: 20px;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  color: inherit;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
+textarea,
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="search"],
+input[type="phone"],
+input[type="date"],
+input[type="text"],
+input[type="email"] {
+  @include clear-outline();
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+iframe {
+  border: 0;
+}
+
+#wpadminbar {
+  @media (max-width: 600px) {
+    position: fixed;
+  }
+}
+
+.wow {
+  visibility: hidden;
+
+  &.wow-visible {
+    visibility: hidden;
+  }
+}
+
+.scroll-lock {
+  overflow: hidden;
+}

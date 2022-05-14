@@ -1,9 +1,22 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
+const glob = require('glob');
 
 module.exports = {
-  entry: './assets/js/main.js',
+  entry: Object.assign({
+    'main': './app/assets/js/main.js',
+  }, (() => {
+    const files = {};
+    const foundFiles = Array.from(glob.sync('./app/modules/elementor/widgets/**/*.scss'));
+
+    foundFiles.forEach((fileName) => {
+      files['elementor/' + (fileName.replace(/\.\/app\/modules\/elementor\/widgets\/|\.scss/g, ''))] = fileName;
+    });
+
+    return files;
+  })()),
 
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -82,8 +95,15 @@ module.exports = {
   },
 
   plugins: [
+    new FixStyleOnlyEntriesPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].min.css'
     })
-  ]
+  ],
+
+  resolve: {
+    alias: {
+      'app': path.resolve(__dirname, 'app'),
+    },
+  },
 };

@@ -1,0 +1,40 @@
+@mixin btn {
+  font-size: rem(14px);
+  height: $input-height;
+  line-height: $input-height;
+  white-space: nowrap;
+  padding: 0 10px;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  display: inline-block;
+  font-weight: bold;
+  //-webkit-font-smoothing: antialiased;
+  text-align: center;
+  text-shadow: none;
+  border: 0;
+  position: relative;
+  border-radius: 0;
+  background-color: #ccc;
+  @include st-transition();
+
+  @include media-breakpoint-up(lg) {
+    min-width: $input-min-width;
+    padding: 0 30px;
+    font-size: rem(16px);
+  }
+
+  &.btn-block,
+  &.btn-fullwidth {
+    width: 100% !important;
+  }
+}
+
+.btn {
+  @include btn;
+
+  &--default {
+  }
+
+  &--link {
+  }
+}

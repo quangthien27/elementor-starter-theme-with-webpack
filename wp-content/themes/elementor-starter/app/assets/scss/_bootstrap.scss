@@ -1,0 +1,53 @@
+/*!
+ * Bootstrap v5.1.3 (https://getbootstrap.com/)
+ * Copyright 2011-2021 The Bootstrap Authors
+ * Copyright 2011-2021 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
+
+// scss-docs-start import-stack
+// Configuration
+@import "../lib/bootstrap-5.1.3/scss/functions";
+@import "../lib/bootstrap-5.1.3/scss/variables";
+@import "../lib/bootstrap-5.1.3/scss/mixins";
+@import "../lib/bootstrap-5.1.3/scss/utilities";
+
+// Layout & components
+@import "../lib/bootstrap-5.1.3/scss/root";
+@import "../lib/bootstrap-5.1.3/scss/reboot";
+@import "../lib/bootstrap-5.1.3/scss/type";
+//@import "../lib/bootstrap-5.1.3/scss/images";
+@import "../lib/bootstrap-5.1.3/scss/containers";
+@import "../lib/bootstrap-5.1.3/scss/grid";
+//@import "../lib/bootstrap-5.1.3/scss/tables";
+//@import "../lib/bootstrap-5.1.3/scss/forms";
+//@import "../lib/bootstrap-5.1.3/scss/buttons";
+@import "../lib/bootstrap-5.1.3/scss/transitions";
+//@import "../lib/bootstrap-5.1.3/scss/dropdown";
+//@import "../lib/bootstrap-5.1.3/scss/button-group";
+//@import "../lib/bootstrap-5.1.3/scss/nav";
+//@import "../lib/bootstrap-5.1.3/scss/navbar";
+//@import "../lib/bootstrap-5.1.3/scss/card";
+//@import "../lib/bootstrap-5.1.3/scss/accordion";
+//@import "../lib/bootstrap-5.1.3/scss/breadcrumb";
+//@import "../lib/bootstrap-5.1.3/scss/pagination";
+//@import "../lib/bootstrap-5.1.3/scss/badge";
+//@import "../lib/bootstrap-5.1.3/scss/alert";
+//@import "../lib/bootstrap-5.1.3/scss/progress";
+//@import "../lib/bootstrap-5.1.3/scss/list-group";
+//@import "../lib/bootstrap-5.1.3/scss/close";
+//@import "../lib/bootstrap-5.1.3/scss/toasts";
+//@import "../lib/bootstrap-5.1.3/scss/modal";
+//@import "../lib/bootstrap-5.1.3/scss/tooltip";
+//@import "../lib/bootstrap-5.1.3/scss/popover";
+//@import "../lib/bootstrap-5.1.3/scss/carousel";
+//@import "../lib/bootstrap-5.1.3/scss/spinners";
+//@import "../lib/bootstrap-5.1.3/scss/offcanvas";
+//@import "../lib/bootstrap-5.1.3/scss/placeholders";
+
+// Helpers
+@import "../lib/bootstrap-5.1.3/scss/helpers";
+
+// Utilities
+@import "../lib/bootstrap-5.1.3/scss/utilities/api";
+// scss-docs-end import-stack

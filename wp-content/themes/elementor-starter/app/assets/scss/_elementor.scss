@@ -1,0 +1,8 @@
+.elementor-section-wrap {
+  overflow: hidden;
+}
+
+.swiper .swiper-button-next.swiper-button-disabled,
+.swiper .swiper-button-prev.swiper-button-disabled {
+  pointer-events: auto;
+}

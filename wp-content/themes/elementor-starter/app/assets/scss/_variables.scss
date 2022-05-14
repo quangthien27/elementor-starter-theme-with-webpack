@@ -1,0 +1,66 @@
+/*************************************************/
+/* BOOTSTRAP OVERRIDE */
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1366px,
+    xxl: 1800px,
+);
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1680px
+);
+
+$grid-gutter-width: 20px;
+
+/*************************************************/
+/* FONTS */
+$font-sans-serif: var(--e-global-typography-primary-font-family);
+$font-size-root: 16px;
+
+/*************************************************/
+/* COLORS */
+$colors: (
+    'white': white,
+    'black': black,
+);
+
+/*************************************************/
+/* IMAGES */
+$images: '../images';
+$images-from-widgets: '../../../../assets/images';
+$fonts: '../fonts';
+
+/*************************************************/
+/* SPACINGS */
+$gutter: 60px;
+$gutter-md: 30px;
+$gutter-sm: 15px;
+
+$input-height: 44px;
+$input-min-width: 160px;
+
+$screen-admin-min: 783px;
+$screen-inner-content: 1000px;
+
+$g-admin-bar-small: 32px;
+$g-admin-bar-large: 46px;
+$g-logo-large: 70px;
+$g-logo-small: 30px;
+$g-logo-xs: 10px;
+
+$letter-spacing: 0.4em;
+$letter-spacing-md: 0.2em;
+$letter-spacing-sm: 0.1em;
+$letter-spacing-xs: 0.05em;
+
+$header-top-desktop: 90px;
+$header-top-mobile: 60px;
+$header-bottom-desktop: 50px;
+$header-bottom-mobile: 35px;

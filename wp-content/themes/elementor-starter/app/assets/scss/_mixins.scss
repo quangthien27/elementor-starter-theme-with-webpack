@@ -1,0 +1,451 @@
+@use "sass:math";
+
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+  $n: index($breakpoint-names, $name);
+  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+
+@function breakpoint-min($name, $breakpoints: $grid-breakpoints) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+  $next: breakpoint-next($name, $breakpoints);
+  @return if($next, breakpoint-min($next, $breakpoints) - 1px, null);
+}
+
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+  @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+}
+
+@function strip-unit($num) {
+  @return math.div($num, $num * 0 + 1);
+}
+
+@function rem($px-value) {
+  $root-value: strip-unit($font-size-root);
+  $value: strip-unit($px-value);
+  $rem-value: math.div($value, $root-value) + rem;
+  @return $rem-value;
+}
+
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-between($lower, $upper, $breakpoints: $grid-breakpoints) {
+  @include media-breakpoint-up($lower, $breakpoints) {
+    @include media-breakpoint-down($upper, $breakpoints) {
+      @content;
+    }
+  }
+}
+
+@mixin media-breakpoint-only($name, $breakpoints: $grid-breakpoints) {
+  @include media-breakpoint-between($name, $name, $breakpoints) {
+    @content;
+  }
+}
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot otf ttf woff) {
+  $src: null;
+
+  $extmods: (
+      eot: "?",
+      svg: "#" + str-replace($name, " ", "_")
+  );
+
+  $formats: (
+      otf: "opentype",
+      ttf: "truetype"
+  );
+
+  @each $ext in $exts {
+    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+  }
+
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}
+
+@mixin background-image($bigPath, $smallPath) {
+  @include media-breakpoint-up(md) {
+    background-image: url($bigPath);
+  }
+  @include media-breakpoint-down(md) {
+    background-image: url($smallPath);
+  }
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+
+@mixin gradient($color1, $color2) {
+  background: #{$color1}; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#{$color1}, #{$color2}); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#{$color1}, #{$color2}); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#{$color1}, #{$color2}); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#{$color1}, #{$color2}); /* Standard syntax */
+}
+
+@mixin clear-ul-li() {
+  padding-left: 0;
+  margin: 0;
+  li {
+    list-style-type: none;
+  }
+}
+
+@mixin clear-outline() {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline: 0;
+}
+
+@mixin reset-absolute() {
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  position: relative;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+@mixin bg-image-pos($pos, $size: cover) {
+  background-position: $pos;
+  background-repeat: no-repeat;
+  -webkit-background-size: $size;
+  background-size: $size;
+}
+
+@mixin st-transition {
+  transition: all .25s ease-in-out 0s;
+}
+
+@mixin destroy-hover {
+  &::after {
+    content: none;
+  }
+}
+
+@mixin st-shadow {
+  box-shadow: 0 3px 6px rgba(#000, 0.16);
+}
+
+@mixin st-card {
+  border: 1px solid var(--e-global-color-f65e74e);
+  @include st-transition;
+
+  &:hover {
+    // @include st-shadow;
+    box-shadow: 0 0 10px rgba(33, 33, 33, .2);
+  }
+}
+
+@mixin st-card-padding {
+  padding: 10px;
+
+  @include media-breakpoint-up(lg) {
+    padding: 15px;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    padding: 25px;
+  }
+}
+
+@mixin st-mobile-scroll-row {
+  .row {
+    @include media-breakpoint-down(sm) {
+      flex-wrap: nowrap;
+      overflow: auto;
+      scroll-behavior: smooth;
+
+      > .col {
+        width: 80%;
+      }
+    }
+  }
+}
+
+@mixin st-list {
+  ul {
+    padding-left: 1rem;
+    list-style: none;
+
+    li::before {
+      content: "•";
+      color: var(--e-global-color-secondary);
+      display: inline-block;
+      width: 0.8em;
+      margin-left: -0.8em;
+      font-size: 20px;
+      line-height: 1;
+      vertical-align: -2px;
+    }
+  }
+}
+
+@mixin st-section-gap {
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  @include media-breakpoint-up(lg) {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+@mixin st-overlay-bottom {
+  position: relative;
+
+  &:after {
+    @include pseudo-content;
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 50px;
+    pointer-events: none;
+    z-index: 1;
+
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,1+100 */
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=0); /* IE6-9 */
+  }
+}
+
+@mixin hover-focus-active {
+  &:focus,
+  &:active,
+  &:hover {
+    @content
+  }
+}
+
+@mixin link-variant($color) {
+  color: $color;
+  @include st-transition();
+  @include hover-focus-active() {
+    color: lighten($color, 5%);
+  }
+}
+
+@mixin centered-block() {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin btn-variant($color, $bg-color) {
+  border-radius: 0;
+  border: 0;
+  text-transform: uppercase;
+  background-color: $bg-color;
+  color: $color;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  @include st-transition();
+  @include hover-focus-active() {
+    background-color: lighten($bg-color, 10%);
+  }
+}
+
+@mixin pseudo-content() {
+  content: '';
+  display: block;
+  position: absolute;
+}
+
+@mixin safari-only() {
+  @media not all and (min-resolution: .001dpcm) {
+    @supports (-webkit-appearance:none) {
+      @content
+    }
+  }
+}
+
+@mixin ie10-only() {
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @content
+  }
+}
+
+@mixin spaced() {
+  letter-spacing: $letter-spacing-md;
+  @include media-breakpoint-up(md) {
+    letter-spacing: $letter-spacing;
+  }
+}
+
+@mixin spaced-md() {
+  letter-spacing: $letter-spacing-sm;
+  @include media-breakpoint-up(md) {
+    letter-spacing: $letter-spacing-md;
+  }
+}
+
+@mixin spaced-sm() {
+  letter-spacing: $letter-spacing-xs;
+  @include media-breakpoint-up(md) {
+    letter-spacing: $letter-spacing-sm;
+  }
+}
+
+@mixin style-select2($height, $vertical-align, $color, $padding-left) {
+  $h: $height;
+  vertical-align: $vertical-align;
+  text-align: left !important;
+  position: relative;
+  .Safari & {
+    vertical-align: 0;
+  }
+  @include safari-only() {
+    vertical-align: 0;
+  }
+  &:after {
+    @include pseudo-content;
+    left: 0;
+    top: $height - 1px;
+    height: 1px;
+    background-color: $color;
+    right: 0;
+  }
+  &,
+  & * {
+    outline: none !important;
+  }
+  .select2-selection--single {
+    background-color: transparent;
+    border: 0;
+    height: $h;
+  }
+  .select2-selection__rendered {
+    color: $color;
+    line-height: $h;
+    padding-left: $padding-left;
+    padding-right: 15px;
+  }
+  .select2-selection__arrow {
+    top: 50%;
+    margin-top: -13px;
+    right: -5px;
+
+    b {
+      border-color: $color transparent transparent transparent;
+    }
+  }
+}
+
+@mixin section-title() {
+  line-height: 1.1;
+  font-weight: 300;
+  font-size: rem(25px);
+  @include media-breakpoint-up(lg) {
+    font-size: rem(39px);
+  }
+}
+
+@mixin ratio($width, $height) {
+  &:before {
+    @include pseudo-content;
+    height: 0;
+    position: relative;
+    padding-bottom: math.div($height, $width)*100%;
+  }
+}
+
+@mixin img-ratio($width, $height) {
+  @include ratio($width, $height);
+
+  position: relative;
+
+  img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover;
+  }
+}
+
+@mixin offset-scroll() {
+  &:before {
+    body:not(.elementor-editor-active) & {
+      content: "";
+      display: block;
+      height: $header-top-desktop + $header-top-mobile;
+      margin: -($header-top-desktop + $header-top-mobile) 0 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+}
+
+@mixin offset-padding-top() {
+  @include media-breakpoint-up(lg) {
+    padding-top: $header-top-desktop + $header-bottom-mobile;
+  }
+
+  @include media-breakpoint-up(xl) {
+    padding-top: $header-top-desktop + $header-bottom-desktop;
+  }
+}
+
+@mixin offset-for-header() {
+  .elementor[data-elementor-type] > .elementor-section:first-child & {
+    @include offset-padding-top;
+  }
+}
+
+@function theme-color($key: "primary") {
+  @return map-get($colors, $key);
+}
