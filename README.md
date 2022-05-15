@@ -81,14 +81,24 @@
 4. In widget PHP file:
     1. Update `get_title()` function with new widget name, Eg: `Featured Heading`
     2. If the widget requires extra libraries, add to `get_style_depends()` and `get_script_depends()`. Make sure to register the asset first, can register either in the widget `_register_assets()` or in `app/core/setup.php >> enqueue_scripts()` (if the libraries are used across different widgets)
-    3. Add the widget controls to `register_controls()`
-    4. Add widget HTML and JS to `render()`
+    3. Add the widget controls to `register_controls()`. For more controls, check [this Elementor document](https://developers.elementor.com/docs/controls/data-controls/).
+    4. Add widget HTML and JS to `render()`, make sure to update `$uid` and the wrapper class
 5. Go to `app/modules/elementor/elementor.php` and register the widget in `init_widgets()`
 
 ## TIPS
 
-Access app helpers functions using `App_Core::instance()->helpers`, eg:
+- Access app helpers functions using `App_Core::instance()->helpers`, eg:
 
 ```
 App_Core::instance()->helpers->get_page_title();
 ```
+
+- SCSS media query using `@include media-breakpoint-up()` and `@include media-breakpoint-down()` eg:
+
+```
+@include media-breakpoint-up(lg) {
+    --swiper-navigation-size: 35px;
+}
+```
+
+- If we use LocalWP for local development, we can enable "[Instant Reload](https://localwp.com/help-docs/local-features/instant-reload/)" module for faster development

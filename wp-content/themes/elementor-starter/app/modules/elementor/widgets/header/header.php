@@ -45,9 +45,10 @@ class Elem_Header extends Widget_Base {
   }
 
   protected function render() {
-    $uid = uniqid( 'elem-header-' );
+    $class = 'elem-header';
+    $uid   = uniqid( "$class-" );
     ?>
-    <div id="<?= $uid ?>" class="elem-header">
+    <div id="<?= $uid ?>" class="<?= $class ?>">
       <?/* Add HTML/PHP code here */ ?>
 
       <?/* Add JS below, make sure to use defer for performance. Always select child elements starting from "element" parent variable */ ?>
@@ -76,7 +77,7 @@ class Elem_Header extends Widget_Base {
   }
 
   private function _register_assets() {
-    $name = strtolower( substr( $this->get_name(), 5 ) );
+    $name = str_replace( '_', '-', strtolower( substr( $this->get_name(), 5 ) ) );
 
     wp_register_style( $this->_get_asset_handle(), get_theme_file_uri( "dist/elementor/$name/$name.min.css" ), [], ASSETS_VERSION );
   }
