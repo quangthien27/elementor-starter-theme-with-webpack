@@ -123,8 +123,8 @@ class App_Setup {
     $suffix = SCRIPT_DEBUG ? '' : '.min';
 
     // Only registered assets. Purpose: for enqueuing in components/widgets when needed only
-    wp_register_style( 'theme-swiper-css', get_theme_file_uri( "assets/lib/swiper/swiper-bundle{$suffix}.css" ), [] );
-    wp_register_script( 'theme-swiper-js', get_theme_file_uri( "assets/lib/swiper/swiper-bundle{$suffix}.js" ), [], false, true );
+    wp_register_style( 'theme-swiper-css', App_Core::instance()->helpers->get_assets_path( "lib/swiper/swiper-bundle{$suffix}.css" ), [] );
+    wp_register_script( 'theme-swiper-js', App_Core::instance()->helpers->get_assets_path( "lib/swiper/swiper-bundle{$suffix}.js" ), [], false, true );
 
     // Global enqueued assets
     $assets_css = [
