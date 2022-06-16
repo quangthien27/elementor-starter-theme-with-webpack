@@ -6,64 +6,64 @@
 4. Run `yarn watch` when developing
 5. Full folder structure and explanation below (there may be some changes or differences)
 
-```
-|-- comments.php    : required WP file (not using)
-|-- footer.php      : required WP file (not using, if built with Elementor)
-|-- functions.php   : required WP file (not using; contains entry point of the app)
-|-- header.php      : required WP file (not using, if built with Elementor)
-|-- index.php       : required WP file (not using, if built with Elementor)
-|-- screenshot.png  : theme screenshot
-|-- sidebar.php     : required WP file (not using)
-|-- style.css       : required WP file (not using)
-|-- acf-json        : json folder for saved ACF fields
-|-- alm_templates   : default folder of Ajax Load More template, do not change folder name
-|   |-- default.php : default template of Ajax Load More
+```shell
+|-- comments.php                        # → required WP file (not using)
+|-- footer.php                          # → required WP file (not using, if built with Elementor)
+|-- functions.php                       # → required WP file (not using; contains entry point of the app)
+|-- header.php                          # → required WP file (not using, if built with Elementor)
+|-- index.php                           # → required WP file (not using, if built with Elementor)
+|-- screenshot.png                      # → theme screenshot
+|-- sidebar.php                         # → required WP file (not using)
+|-- style.css                           # → required WP file (not using)
+|-- acf-json                            # → json folder for saved ACF fields
+|-- alm_templates                       # → default folder of Ajax Load More template, do not change folder name
+|   |-- default.php                     # → default template of Ajax Load More
 |-- app
-|   |-- app.php     : main app entry point, contains core classes auto load
+|   |-- app.php                         # → main app entry point, contains core classes auto load
 |   |-- assets
-|   |   |-- fonts   : theme fontfaces
-|   |   |-- images  : theme images/icons
+|   |   |-- fonts                       # → theme fontfaces
+|   |   |-- images                      # → theme images/icons
 |   |   |-- js
-|   |   |   |-- main.js     : main js entry point
-|   |   |   |-- utils.js    : utilitils js functions
-|   |   |-- lib                         : extra libraries
-|   |   |   |-- Readmore                : read more toggle 
-|   |   |   |-- bootstrap-5.1.3         : Bootstrap
-|   |   |   |-- css_browser_selector    : inject browser name and OS to body class
-|   |   |   |-- imagesloaded            : provide signals for images loaded
-|   |   |   |-- isotope                 : fancy grid
-|   |   |   |-- jquery-hoverIntent      : hover intent/delay
-|   |   |   |-- lity-2.4.1              : provide quick popups functionality
-|   |   |   |-- overlayscrollbars       : custom scrollbars
-|   |   |   |-- parallax.js             : paralax effects
-|   |   |   |-- swiper                  : for sliders
-|   |   |   |-- wow                     : for animating
-|   |   |-- scss                : SCSS files, avoid adding extra files if not really needed
-|   |       |-- _animate.scss   : extra libraries
-|   |       |-- _bootstrap.scss : customize importing Bootstrap 
-|   |       |-- _elementor.scss : global styles for Elementor components
-|   |       |-- _form.scss      : global styles for form and form elements, such as form, button, inputs
-|   |       |-- _general.scss   : global geleral styles, such as heading, paragraph, link, etc.
-|   |       |-- _mixins.scss    : SCSS mixins
-|   |       |-- _variables.scss : common SCSS variables
-|   |       |-- main.scss       : SCSS main entry point
-|   |-- components : For components. Use WP "get_template_part(<component>, null, $args[])" function to include
+|   |   |   |-- main.js                 # → main js entry point
+|   |   |   |-- utils.js                # → utilities js functions
+|   |   |-- lib                         # → extra libraries
+|   |   |   |-- Readmore                # → read more toggle 
+|   |   |   |-- bootstrap-5.1.3         # → Bootstrap
+|   |   |   |-- css_browser_selector    # → inject browser name and OS to body class
+|   |   |   |-- imagesloaded            # → provide signals for images loaded
+|   |   |   |-- isotope                 # → fancy grid
+|   |   |   |-- jquery-hoverIntent      # → hover intent/delay
+|   |   |   |-- lity-2.4.1              # → provide quick popups functionality
+|   |   |   |-- overlayscrollbars       # → custom scrollbars
+|   |   |   |-- parallax.js             # → paralax effects
+|   |   |   |-- swiper                  # → for sliders
+|   |   |   |-- wow                     # → for animating
+|   |   |-- scss                        # → SCSS files, avoid adding extra files if not really needed
+|   |       |-- _animate.scss           # → extra libraries
+|   |       |-- _bootstrap.scss         # → customize importing Bootstrap 
+|   |       |-- _elementor.scss         # → global styles for Elementor components
+|   |       |-- _form.scss              # → global styles for form and form elements, such as form, button, inputs
+|   |       |-- _general.scss           # → global geleral styles, such as heading, paragraph, link, etc.
+|   |       |-- _mixins.scss            # → SCSS mixins
+|   |       |-- _variables.scss         # → common SCSS variables
+|   |       |-- main.scss               # → SCSS main entry point
+|   |-- components                      # → For components. Use WP "get_template_part(<component>, null, $args[])" function to include
 |   |   |-- button
 |   |       |-- button.php
 |   |       |-- button.scss
 |   |-- core
-|   |   |-- admin.php   : all hooks related to and for admin screens only
-|   |   |-- helpers.php : helper functions
-|   |   |-- setup.php   : all hooks related to front end
+|   |   |-- admin.php                   # → all hooks related to and for admin screens only
+|   |   |-- helpers.php                 # → helper functions
+|   |   |-- setup.php                   # → all hooks related to front end
 |   |-- modules
 |       |-- elementor
 |           |-- elementor.php
-|           |-- tags : custom dynamic tag. Check "init_dynamic_tags" function in above "elementor.php" file for how to include
+|           |-- tags                    # → custom dynamic tag. Check "init_dynamic_tags" function in above "elementor.php" file for how to include
 |           |   |-- home-url.php
-|           |-- widgets : custom widgets. Check "init_widgets" function in above "elementor.php" file for how to include
+|           |-- widgets                 # → custom widgets. Check "init_widgets" function in above "elementor.php" file for how to include
 |               |-- header
-|                   |-- header.php  : contain PHP and JS scripts
-|                   |-- header.scss : contain SCSS
+|                   |-- header.php      # → contain PHP and JS scripts
+|                   |-- header.scss     # → contain SCSS
 |-- template-parts
 |   |-- 404.php
 |   |-- archive.php
