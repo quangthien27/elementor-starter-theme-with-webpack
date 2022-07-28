@@ -79,7 +79,7 @@ class Elem_Header extends Widget_Base {
   private function _register_assets() {
     $name = str_replace( '_', '-', strtolower( substr( $this->get_name(), 5 ) ) );
 
-    wp_register_style( $this->_get_asset_handle(), get_theme_file_uri( "dist/elementor/$name/$name.min.css" ), [], ASSETS_VERSION );
+    wp_register_style( $this->_get_asset_handle(), get_theme_file_uri( "dist/css/$name.min.css" ), [], ASSETS_VERSION );
   }
 
   private function _get_asset_handle(): string {

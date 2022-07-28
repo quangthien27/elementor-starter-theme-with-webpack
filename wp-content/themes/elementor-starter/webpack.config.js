@@ -11,8 +11,9 @@ module.exports = {
     const files = {};
     const foundFiles = Array.from(glob.sync('./app/modules/elementor/widgets/**/*.scss'));
 
-    foundFiles.forEach((fileName) => {
-      files['elementor/' + (fileName.replace(/\.\/app\/modules\/elementor\/widgets\/|\.scss/g, ''))] = fileName;
+    foundFiles.forEach((filePath) => {
+      const filename = filePath.split(/(\\|\/)/g).pop();
+      files[filename.replace(/\.scss/g, '')] = filePath;
     });
 
     return files;
@@ -20,7 +21,7 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].min.js',
+    filename: 'js/[name].min.js',
   },
 
   devtool: (process.env.NODE_ENV === 'production' ? 'cheap-source-map' : 'source-map'),
@@ -41,7 +42,10 @@ module.exports = {
         test: /\.(sa|sc|c)ss$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../'
+            }
           },
           {
             loader: 'css-loader',
@@ -97,7 +101,7 @@ module.exports = {
   plugins: [
     new FixStyleOnlyEntriesPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].min.css'
+      filename: 'css/[name].min.css'
     })
   ],
 

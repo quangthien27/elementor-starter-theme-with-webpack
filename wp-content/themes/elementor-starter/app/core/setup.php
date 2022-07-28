@@ -148,8 +148,8 @@ class App_Setup {
 
     /* Main assets */
     wp_enqueue_style( 'theme-dashicons', includes_url( "css/dashicons$suffix.css" ), [], ASSETS_VERSION );
-    wp_enqueue_style( 'theme-style', get_theme_file_uri( 'dist/main.min.css' ), [], ASSETS_VERSION );
-    wp_enqueue_script( 'theme-js', get_theme_file_uri( 'dist/main.min.js' ), [], ASSETS_VERSION, true );
+    wp_enqueue_style( 'theme-style', get_theme_file_uri( 'dist/css/main.min.css' ), [], ASSETS_VERSION );
+    wp_enqueue_script( 'theme-js', get_theme_file_uri( 'dist/js/main.min.js' ), [], ASSETS_VERSION, true );
 
     wp_localize_script( 'theme-js',
       'App',
