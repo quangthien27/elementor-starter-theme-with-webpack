@@ -32,7 +32,7 @@ final class Custom_Elementor {
     add_action( 'elementor/dynamic_tags/register_tags', [ $this, 'init_dynamic_tags' ] );
     add_action( 'elementor/widgets/register', [ $this, 'init_widgets' ] );
     add_action( 'elementor/elements/categories_registered', [ $this, 'init_categories' ] );
-    add_action( 'elementor/element/post/document_settings/before_section_end', [ $this, 'init_page_settings_controls' ] );
+    add_action( 'elementor/element/wp-post/document_settings/before_section_end', [ $this, 'init_page_settings_controls' ] );
   }
 
   public function init_widgets(): void {
